@@ -1,0 +1,65 @@
+#include <iostream>
+#include <fstream>
+#include <bits/stdc++.h>
+using namespace std;
+bool Helper(int idx, string &str, map<string, bool> &mp, int pos = 0)
+{
+
+    if (idx == str.size())
+    {
+        if (idx == pos)
+            return true;
+        else
+            return false;
+    }
+    if (mp[str.substr(pos, idx - pos + 1)])
+    {
+        if (Helper(idx + 1, str, mp, idx + 1))
+            return true;
+    }
+    if (Helper(idx + 1, str, mp, pos))
+        return true;
+    return false;
+}
+int main()
+{
+    fstream newfile;
+
+    newfile.open("Input_01.txt", ios::in);
+    if (newfile.is_open())
+    {
+        string data;
+        map<string, bool> mp;
+        string ans1 = "", ans2 = "";
+        int len1 = 0, len2 = 0;
+        while (getline(newfile, data))
+        {
+            if (mp[data])
+                continue;
+            if (Helper(0, data, mp))
+            {
+                if (len1 <= data.size())
+                {
+                    
+                    len2 = len1;
+                    ans2 = ans1;
+                    len1 = data.size();
+                    ans1 = data;
+                }
+                else if (len2 < data.size())
+                {
+                    len2 = data.size();
+                    ans2 = data;
+                }
+            }
+            else
+            {
+                mp[data] = true;
+            }
+        }
+        newfile.close();
+        cout << ans1 << endl;
+        cout << ans2 << endl;
+    }
+    return 0;
+}
