@@ -1,4 +1,4 @@
-# impledge-technology-s-assessment
+# code solution
 problem given by impledge technology
 logic
 The input is taken from the file Input_01.txt.
